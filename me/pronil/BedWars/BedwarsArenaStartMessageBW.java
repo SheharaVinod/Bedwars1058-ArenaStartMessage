@@ -54,9 +54,8 @@ public class BedwarsArenaStartMessageBW
                 new BukkitRunnable() {
 
                     public void run() {
-                        String arena = "";
                         final TextComponent addon = new TextComponent(BedwarsArenaStartMessageBW.this.minPlayersPassedText.replace("{arena}", ArenaName).replace("{arenagroup}", ArenaGroup));
-                        command(arena, addon, minPlayersPassedTulip, Lobby.getName(), ArenaGroup, Lobby, file);
+                        command(addon, minPlayersPassedTulip, Arena2.getArenaName(), ArenaGroup, Lobby, file);
 
                     }
                 }.runTaskLater(Main.getPlugin(), 10L);
@@ -65,15 +64,14 @@ public class BedwarsArenaStartMessageBW
             new BukkitRunnable() {
 
                 public void run() {
-                    String arena = "";
                     final TextComponent addon = new TextComponent(BedwarsArenaStartMessageBW.this.arenaStartingText.replace("{arena}", ArenaName).replace("{arenagroup}", ArenaGroup));
-                    command(arena, addon, arenaStartingTulip, Lobby.getName(), ArenaGroup, Lobby, file);
+                    command(addon, arenaStartingTulip, Arena2.getArenaName(), ArenaGroup, Lobby, file);
                 }
             }.runTaskLater(Main.getPlugin(), 10L);
         }
     }
 
-    private void command(String arena, TextComponent addon, String arenaStartingTulip, String ArenaName, String ArenaGroup, World Lobby, FileConfiguration file) {
+    private void command(TextComponent addon, String arenaStartingTulip, String ArenaName, String ArenaGroup, World Lobby, FileConfiguration file) {
         addon.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/bw join " + ArenaName.toLowerCase()));
         addon.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, (new ComponentBuilder(arenaStartingTulip.replace("{arena}", ArenaName).replace("{arenagroup}", ArenaGroup))).create()));
 
