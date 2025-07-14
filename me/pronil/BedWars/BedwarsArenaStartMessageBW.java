@@ -5,11 +5,11 @@ import com.andrei1058.bedwars.api.BedWars;
 import com.andrei1058.bedwars.api.arena.GameState;
 import com.andrei1058.bedwars.api.events.gameplay.GameStateChangeEvent;
 import com.andrei1058.bedwars.arena.Arena;
-
-import java.io.File;
-
 import me.pronil.Main;
-import net.md_5.bungee.api.chat.*;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -19,6 +19,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.io.File;
 
 
 public class BedwarsArenaStartMessageBW
@@ -54,7 +56,7 @@ public class BedwarsArenaStartMessageBW
                     public void run() {
                         String arena = "";
                         final TextComponent addon = new TextComponent(BedwarsArenaStartMessageBW.this.minPlayersPassedText.replace("{arena}", ArenaName).replace("{arenagroup}", ArenaGroup));
-                        command(arena, addon, minPlayersPassedTulip, ArenaName, ArenaGroup, Lobby, file);
+                        command(arena, addon, minPlayersPassedTulip, Lobby.getName(), ArenaGroup, Lobby, file);
 
                     }
                 }.runTaskLater(Main.getPlugin(), 10L);
@@ -65,14 +67,14 @@ public class BedwarsArenaStartMessageBW
                 public void run() {
                     String arena = "";
                     final TextComponent addon = new TextComponent(BedwarsArenaStartMessageBW.this.arenaStartingText.replace("{arena}", ArenaName).replace("{arenagroup}", ArenaGroup));
-                    command(arena, addon, arenaStartingTulip, ArenaName, ArenaGroup, Lobby, file);
+                    command(arena, addon, arenaStartingTulip, Lobby.getName(), ArenaGroup, Lobby, file);
                 }
             }.runTaskLater(Main.getPlugin(), 10L);
         }
     }
 
     private void command(String arena, TextComponent addon, String arenaStartingTulip, String ArenaName, String ArenaGroup, World Lobby, FileConfiguration file) {
-        addon.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/bw join " + ArenaName.toLowerCase() + arena));
+        addon.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/bw join " + ArenaName.toLowerCase()));
         addon.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, (new ComponentBuilder(arenaStartingTulip.replace("{arena}", ArenaName).replace("{arenagroup}", ArenaGroup))).create()));
 
         for (Player player : Bukkit.getOnlinePlayers()) {
